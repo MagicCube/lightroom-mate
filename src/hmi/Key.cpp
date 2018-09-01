@@ -5,6 +5,13 @@ Key::Key(uint8_t code, uint8_t pin) {
   _pin = pin;
 }
 
+Encoder *Key::getEncoder() {
+  return _encoder;
+}
+void Key::setEncoder(Encoder *encoder) {
+  _encoder = encoder;
+}
+
 void Key::onKeyDown(KeyEventHandler handler) {
   _onKeyDown = handler;
 }
@@ -35,11 +42,11 @@ void Key::_setState(KeyState value) {
   _lastStateChange = millis();
   if (_state == KeyState::DOWN) {
     if (_onKeyDown) {
-      _onKeyDown(KeyEventArgs(_code));
+      _onKeyDown(KeyEventArgs(this, _code));
     }
   } else {
     if (_onKeyUp) {
-      _onKeyUp(KeyEventArgs(_code));
+      _onKeyUp(KeyEventArgs(this, _code));
     }
   }
 }

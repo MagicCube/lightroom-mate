@@ -4,12 +4,16 @@
 
 #include <functional>
 
+#include "Encoder.h"
 #include "KeyEvent.h"
 #include "KeyState.h"
 
 class Key {
 public:
   Key(uint8_t code, uint8_t pin);
+
+  Encoder *getEncoder();
+  void setEncoder(Encoder *encoder);
 
   void onKeyDown(KeyEventHandler handler);
   void onKeyUp(KeyEventHandler handler);
@@ -19,6 +23,8 @@ public:
 
 private:
   void _setState(KeyState state);
+
+  Encoder *_encoder;
 
   uint8_t _pin;
   uint8_t _code;
