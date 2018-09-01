@@ -1,7 +1,17 @@
 #include "MIDIController.h"
 
+#include "../constants.h"
+
 MIDIController::MIDIController(MIDIProvider *midiProvider) {
   _midiProvider = midiProvider;
+}
+
+int MIDIController::getChannel() {
+  return _channel;
+}
+
+void MIDIController::setChannel(int channel) {
+  _channel = channel;
 }
 
 void MIDIController::registerKey(uint8_t note, uint8_t pin) {
@@ -36,13 +46,13 @@ void MIDIController::update() {
 }
 
 void MIDIController::_handleKeyDown(KeyEventArgs e) {
-  _midiProvider->sendMIDIEvent(0x90, e.code, 127);
+  _midiProvider->sendMIDIEvent(MIDI_EVENT_TYPE_CHAN1_CONTROL + 10, e.code, 127);
 }
 
 void MIDIController::_handleKeyUp(KeyEventArgs e) {
-  _midiProvider->sendMIDIEvent(0x80, e.code, 0);
+  _midiProvider->sendMIDIEvent(MIDI_EVENT_TYPE_CHAN1_NOTE, e.code, 0);
 }
 
 void MIDIController::_handleEncoderChange(EncoderEventArgs e) {
-  _midiProvider->sendMIDIEvent(0xb0, e.code, e.value);
+  _midiProvider->sendMIDIEvent(MIDI_EVENT_TYPE_CHAN1_CONTROL, e.code, e.value);
 }

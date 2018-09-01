@@ -12,6 +12,9 @@ class MIDIController {
 public:
   MIDIController(MIDIProvider *midiProvider);
 
+  int getChannel();
+  void setChannel(int channel);
+
   void registerKey(uint8_t note, uint8_t pin);
   void registerEncoder(uint8_t controllerId, uint8_t clkPin, uint8_t dtPin);
 
@@ -21,6 +24,7 @@ public:
 private:
   MIDIProvider *_midiProvider;
 
+  uint8_t _channel = 1;
   List<Key *> _keys;
   List<Encoder *> _encoders;
 
