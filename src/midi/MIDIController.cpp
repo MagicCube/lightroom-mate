@@ -24,9 +24,9 @@ void MIDIController::update() {
 }
 
 void MIDIController::_handleKeyDown(KeyEventArgs e) {
-  _midiProvider->sendMIDIEvent(0x90, 60, 127);
+  _midiProvider->sendMIDIEvent(0x90, e.code, 127);
 }
 
 void MIDIController::_handleKeyUp(KeyEventArgs e) {
-  _midiProvider->sendMIDIEvent(0x80, 60, 0);
+  _midiProvider->sendMIDIEvent(0x80, e.code, 0);
 }
