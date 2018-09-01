@@ -4,17 +4,8 @@
 
 #include <functional>
 
-enum class KeyState { UP = HIGH, DOWN = LOW };
-
-struct KeyEventArgs {
-  KeyEventArgs(uint8_t p_code) {
-    code = p_code;
-  }
-
-  uint8_t code;
-};
-
-typedef std::function<void(KeyEventArgs)> KeyEventHandler;
+#include "KeyEvent.h"
+#include "KeyState.h"
 
 class Key {
 public:
