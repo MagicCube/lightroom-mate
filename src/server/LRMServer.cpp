@@ -3,13 +3,6 @@
 #include "LRMServerCallback.h"
 
 LRMServer::LRMServer() {
-  auto chipId = ESP.getEfuseMac();
-  // Only use the last 4 byte as ID
-  _name = String("LightroomMate-" + String((uint32_t)chipId));
-}
-
-String LRMServer::getName() {
-  return _name;
 }
 
 MIDIService *LRMServer::getMIDIService() {
@@ -33,7 +26,6 @@ void LRMServer::setConnected(bool connected) {
 void LRMServer::begin() {
   Serial.println("Initializing MIDI Server...");
 
-  BLEDevice::init(_name.c_str());
   _bleServer = BLEDevice::createServer();
   _bleServer->setCallbacks(new LRMServerCallbacks(this));
 
@@ -43,7 +35,7 @@ void LRMServer::begin() {
   _bleServer->getAdvertising()->addServiceUUID(MIDI_SERVICE_UUID);
   _bleServer->getAdvertising()->start();
 
-  Serial.printf("BLE Advertising is now started as [%s].\n", _name.c_str());
+  Serial.println("BLE Advertising is now started.");
 }
 
 BLEService *LRMServer::createBLEService(String uuid) {

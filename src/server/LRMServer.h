@@ -14,7 +14,6 @@ class LRMServer {
 public:
   LRMServer();
 
-  String getName();
   MIDIService *getMIDIService();
 
   bool isConnected();
@@ -24,7 +23,6 @@ public:
   BLEService *createBLEService(String uuid);
 
 private:
-  String _name;
   bool _connected = false;
   BLEServer *_bleServer;
   MIDIService *_midiService;
