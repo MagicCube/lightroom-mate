@@ -21,8 +21,7 @@ void initServer() {
 
 void initController() {
   controller = new MIDIController(server->getMIDIService());
-  controller->registerEncoder(MIDI_CONTINUOUS_CONTROLLER_08, 21, 22);
-  controller->registerKey(MIDI_NOTE_C4, 23);
+  controller->registerEncoder(MIDI_CONTINUOUS_CONTROLLER_08, MIDI_NOTE_C4, 21, 22, 23);
   controller->begin();
 }
 

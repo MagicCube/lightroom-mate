@@ -15,8 +15,9 @@ public:
   uint8_t getChannel();
   void setChannel(uint8_t channel);
 
-  void registerKey(uint8_t note, uint8_t pin);
-  void registerEncoder(uint8_t controllerId, uint8_t clkPin, uint8_t dtPin);
+  Key *registerKey(uint8_t note, uint8_t pin);
+  Encoder *registerEncoder(uint8_t controllerId, uint8_t note, uint8_t clkPin, uint8_t dtPin,
+                           uint8_t swPin);
 
   void begin();
   void update();
