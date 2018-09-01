@@ -1,8 +1,10 @@
 #include "MIDIService.h"
 
-MIDIService::MIDIService(BLEServer *server) {
-  _bleServer = server;
-  _bleService = _bleServer->createService(BLEUUID(MIDI_SERVICE_UUID));
+#include "../server/LRMServer.h"
+
+MIDIService::MIDIService(LRMServer *server) {
+  _lrmServer = server;
+  _bleService = _lrmServer->createBLEService(MIDI_SERVICE_UUID);
   _bleCharacteristic = _bleService->createCharacteristic(BLEUUID(MIDI_CHARACTERISTIC_UUID),
                                                          BLECharacteristic::PROPERTY_READ |
                                                              BLECharacteristic::PROPERTY_NOTIFY |

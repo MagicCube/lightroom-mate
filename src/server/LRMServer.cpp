@@ -54,11 +54,15 @@ void LRMServer::begin() {
   _bleServer = BLEDevice::createServer();
   _bleServer->setCallbacks(new LRMServerCallbacks(this));
 
-  _midiService = new MIDIService(_bleServer);
+  _midiService = new MIDIService(this);
   _midiService->begin();
 
   _bleServer->getAdvertising()->addServiceUUID(MIDI_SERVICE_UUID);
   _bleServer->getAdvertising()->start();
 
   Serial.printf("BLE Advertising is now started as [%s].\n", _name.c_str());
+}
+
+BLEService *LRMServer::createBLEService(String uuid) {
+  return _bleServer->createService(BLEUUID(uuid.c_str()));
 }

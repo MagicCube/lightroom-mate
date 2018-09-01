@@ -23,6 +23,7 @@ public:
   void setConnected(bool connected);
 
   void begin();
+  BLEService *createBLEService(String uuid);
 
 private:
   String _name;

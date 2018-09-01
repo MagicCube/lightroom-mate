@@ -9,15 +9,17 @@
 
 #include "../constants.h"
 
+class LRMServer;
+
 // Represents a Apple BLE MIDI service.
 class MIDIService {
 public:
-  MIDIService(BLEServer *bleServer);
+  MIDIService(LRMServer *server);
 
   void begin();
 
 private:
-  BLEServer *_bleServer;
+  LRMServer *_lrmServer;
   BLEService *_bleService;
   BLECharacteristic *_bleCharacteristic;
 };
