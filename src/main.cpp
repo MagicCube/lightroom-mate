@@ -1,10 +1,10 @@
 #include <Arduino.h>
 
-#include "hmi/Keyboard.h"
-#include "server/MIDIServer.h"
+#include "midi/MIDIController.h"
+#include "server/LRMServer.h"
 
-MIDIServer server;
-Keyboard keyboard;
+LRMServer server;
+MIDIController controller(server.getMIDIService());
 
 void setup() {
   Serial.begin(115200);
@@ -14,14 +14,14 @@ void setup() {
   Serial.println("*  Copyright(C) 2018 MagicCube. All rights reserved.  *");
   Serial.println("*******************************************************\n");
 
-  keyboard.registerKey(23, 1);
-  keyboard.onKeyDown([](KeyEventArgs e) { Serial.print("Key down"); });
-  keyboard.onKeyUp([](KeyEventArgs e) { Serial.println("Key up"); });
-  keyboard.begin();
-
+  // Start server
   server.begin();
+
+  // Setup controller
+  controller.registerKey(23, 1);
+  controller.begin();
 }
 
 void loop() {
-  keyboard.update();
+  controller.update();
 }
