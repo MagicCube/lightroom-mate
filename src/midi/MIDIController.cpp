@@ -1,7 +1,7 @@
 #include "MIDIController.h"
 
-MIDIController::MIDIController(MIDIService *service) {
-  _midiService = service;
+MIDIController::MIDIController(MIDIProvider *midiProvider) {
+  _midiProvider = midiProvider;
 }
 
 void MIDIController::registerKey(uint8_t pin, uint8_t note) {
@@ -24,9 +24,9 @@ void MIDIController::update() {
 }
 
 void MIDIController::_handleKeyDown(KeyEventArgs e) {
-  Serial.print("Key down");
+  _midiProvider->sendMIDIEvent(0x90, 60, 127);
 }
 
 void MIDIController::_handleKeyUp(KeyEventArgs e) {
-  Serial.println(" up");
+  _midiProvider->sendMIDIEvent(0x80, 60, 0);
 }

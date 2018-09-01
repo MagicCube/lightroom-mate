@@ -4,11 +4,12 @@
 
 #include "../collections/List.h"
 #include "../hmi/Key.h"
-#include "../services/MIDIService.h"
+
+#include "MIDIProvider.h"
 
 class MIDIController {
 public:
-  MIDIController(MIDIService *midiService);
+  MIDIController(MIDIProvider *midiProvider);
 
   void registerKey(uint8_t pin, uint8_t note);
 
@@ -16,7 +17,7 @@ public:
   void update();
 
 private:
-  MIDIService *_midiService;
+  MIDIProvider *_midiProvider;
 
   List<Key *> _keys;
 
