@@ -3,6 +3,9 @@
 #include "LRMServerCallback.h"
 
 LRMServer::LRMServer() {
+  _bleServer = BLEDevice::createServer();
+  _bleServer->setCallbacks(new LRMServerCallbacks(this));
+  _midiService = new MIDIService(this);
 }
 
 MIDIService *LRMServer::getMIDIService() {
@@ -26,10 +29,6 @@ void LRMServer::setConnected(bool connected) {
 void LRMServer::begin() {
   Serial.println("Initializing MIDI Server...");
 
-  _bleServer = BLEDevice::createServer();
-  _bleServer->setCallbacks(new LRMServerCallbacks(this));
-
-  _midiService = new MIDIService(this);
   _midiService->begin();
 
   _bleServer->getAdvertising()->addServiceUUID(MIDI_SERVICE_UUID);
