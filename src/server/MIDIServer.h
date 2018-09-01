@@ -17,10 +17,14 @@ public:
 
   String getName();
 
+  bool isConnected();
+  void setConnected(bool connected);
+
   void begin();
 
 private:
   String _name;
+  bool _connected = false;
   BLEServer *_bleServer;
   MIDIService *_midiService;
 };
