@@ -5,11 +5,11 @@ MIDIKey::MIDIKey(uint8_t pin, uint8_t note) {
   _note = note;
 }
 
-void MIDIKey::onKeyDown(KeyEventHandler handler) {
+void MIDIKey::onKeyDown(MIDIKeyEventHandler handler) {
   _onKeyDown = handler;
 }
 
-void MIDIKey::onKeyUp(KeyEventHandler handler) {
+void MIDIKey::onKeyUp(MIDIKeyEventHandler handler) {
   _onKeyUp = handler;
 }
 

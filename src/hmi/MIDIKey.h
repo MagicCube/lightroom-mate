@@ -16,14 +16,14 @@ struct MIDIKeyEventArgs {
   MIDINote note;
 };
 
-typedef std::function<void(MIDIKeyEventArgs)> KeyEventHandler;
+typedef std::function<void(MIDIKeyEventArgs)> MIDIKeyEventHandler;
 
 class MIDIKey {
 public:
   MIDIKey(uint8_t pin, MIDINote note);
 
-  void onKeyDown(KeyEventHandler handler);
-  void onKeyUp(KeyEventHandler handler);
+  void onKeyDown(MIDIKeyEventHandler handler);
+  void onKeyUp(MIDIKeyEventHandler handler);
 
   void begin();
   void update();
@@ -36,6 +36,6 @@ private:
   KeyState _state = KeyState::UP;
   unsigned long _lastStateChange = 0;
 
-  KeyEventHandler _onKeyDown = NULL;
-  KeyEventHandler _onKeyUp = NULL;
+  MIDIKeyEventHandler _onKeyDown = NULL;
+  MIDIKeyEventHandler _onKeyUp = NULL;
 };
