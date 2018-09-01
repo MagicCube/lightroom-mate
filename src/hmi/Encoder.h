@@ -18,7 +18,7 @@ public:
 private:
   AiEsp32RotaryEncoder _encoder;
   uint8_t _code;
-  uint16_t _value = 64;
+  uint8_t _value = 64;
   EncoderEventHandler _onChange = NULL;
   unsigned long _lastUpdate = 0;
 };
