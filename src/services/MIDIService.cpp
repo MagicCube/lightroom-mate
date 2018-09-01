@@ -8,10 +8,6 @@ MIDIService::MIDIService(BLEServer *server) {
                                                              BLECharacteristic::PROPERTY_NOTIFY |
                                                              BLECharacteristic::PROPERTY_WRITE_NR);
   _bleCharacteristic->addDescriptor(new BLE2902());
-
-  // TODO: To be removed.
-  int value = 1;
-  _bleCharacteristic->setValue(value);
 }
 
 void MIDIService::begin() {
