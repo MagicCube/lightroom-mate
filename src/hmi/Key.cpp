@@ -1,23 +1,23 @@
-#include "MIDIKey.h"
+#include "Key.h"
 
-MIDIKey::MIDIKey(uint8_t pin, uint8_t note) {
+Key::Key(uint8_t pin, uint8_t code) {
   _pin = pin;
-  _note = note;
+  _code = code;
 }
 
-void MIDIKey::onKeyDown(MIDIKeyEventHandler handler) {
+void Key::onKeyDown(KeyEventHandler handler) {
   _onKeyDown = handler;
 }
 
-void MIDIKey::onKeyUp(MIDIKeyEventHandler handler) {
+void Key::onKeyUp(KeyEventHandler handler) {
   _onKeyUp = handler;
 }
 
-void MIDIKey::begin() {
+void Key::begin() {
   pinMode(_pin, INPUT_PULLUP);
 }
 
-void MIDIKey::update() {
+void Key::update() {
   KeyState value = (KeyState)digitalRead(_pin);
   auto sinceLastChange = millis() - _lastStateChange;
   if (value == _state || sinceLastChange < 120) {
@@ -30,16 +30,16 @@ void MIDIKey::update() {
   }
 }
 
-void MIDIKey::_setState(KeyState value) {
+void Key::_setState(KeyState value) {
   _state = value;
   _lastStateChange = millis();
   if (_state == KeyState::DOWN) {
     if (_onKeyDown) {
-      _onKeyDown(MIDIKeyEventArgs(_note));
+      _onKeyDown(KeyEventArgs(_code));
     }
   } else {
     if (_onKeyUp) {
-      _onKeyUp(MIDIKeyEventArgs(_note));
+      _onKeyUp(KeyEventArgs(_code));
     }
   }
 }
