@@ -17,17 +17,9 @@ void MIDIService::begin() {
   Serial.println("MIDI service is now started.");
 }
 
-void MIDIService::sendMIDIEvent(uint8_t type, uint8_t id, uint8_t value) {
-  uint8_t midiPacket[] = {
-      0x80, // 0 - header
-      0x80, // 1 - timestamp, not implemented
-      0x00, // 2 - type
-      0x00, // 3 - m1
-      0x00  // 4 - m2
-  };
-  midiPacket[2] = type;
-  midiPacket[3] = id;
-  midiPacket[4] = value;
-  _bleCharacteristic->setValue(midiPacket, 5);
+void MIDIService::sendMIDIEvent(MIDIEvent event) {
+  uint8_t arr[5];
+  event.toArray(arr);
+  _bleCharacteristic->setValue(arr, 5);
   _bleCharacteristic->notify();
 }

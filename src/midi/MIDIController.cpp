@@ -1,16 +1,16 @@
 #include "MIDIController.h"
 
-#include "../constants.h"
+#include "../midi/MIDIEvent.h"
 
 MIDIController::MIDIController(MIDIProvider *midiProvider) {
   _midiProvider = midiProvider;
 }
 
-int MIDIController::getChannel() {
+uint8_t MIDIController::getChannel() {
   return _channel;
 }
 
-void MIDIController::setChannel(int channel) {
+void MIDIController::setChannel(uint8_t channel) {
   _channel = channel;
 }
 
@@ -46,13 +46,13 @@ void MIDIController::update() {
 }
 
 void MIDIController::_handleKeyDown(KeyEventArgs e) {
-  _midiProvider->sendMIDIEvent(MIDI_EVENT_TYPE_CHAN1_CONTROL + 10, e.code, 127);
+  _midiProvider->sendMIDIEvent(MIDIEventType::NOTE_ON, getChannel(), e.code, 127);
 }
 
 void MIDIController::_handleKeyUp(KeyEventArgs e) {
-  _midiProvider->sendMIDIEvent(MIDI_EVENT_TYPE_CHAN1_NOTE, e.code, 0);
+  _midiProvider->sendMIDIEvent(MIDIEventType::NOTE_OFF, getChannel(), e.code, 0);
 }
 
 void MIDIController::_handleEncoderChange(EncoderEventArgs e) {
-  _midiProvider->sendMIDIEvent(MIDI_EVENT_TYPE_CHAN1_CONTROL, e.code, e.value);
+  _midiProvider->sendMIDIEvent(MIDIEventType::CONTROL_MODE_CHANGE, getChannel(), e.code, e.value);
 }

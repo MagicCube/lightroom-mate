@@ -6,6 +6,7 @@
 
 #include "../constants.h"
 
+#include "../midi/MIDIEvent.h"
 #include "../midi/MIDIProvider.h"
 
 class LRMServer;
@@ -17,7 +18,7 @@ public:
 
   void begin();
 
-  void sendMIDIEvent(uint8_t type, uint8_t id, uint8_t value);
+  void sendMIDIEvent(MIDIEvent event);
 
 private:
   BLECharacteristic *_bleCharacteristic;
