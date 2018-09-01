@@ -5,6 +5,14 @@ Keyboard::Keyboard() {
   _keyUpEventHandler = [this](KeyEventArgs e) { _handleKeyUp(e); };
 }
 
+void Keyboard::onKeyDown(KeyEventHandler handler) {
+  _onKeyDown = handler;
+}
+
+void Keyboard::onKeyUp(KeyEventHandler handler) {
+  _onKeyUp = handler;
+}
+
 void Keyboard::begin() {
   for (auto key : _keys) {
     key->begin();
@@ -25,9 +33,13 @@ void Keyboard::registerKey(uint8_t pin, uint8_t note) {
 }
 
 void Keyboard::_handleKeyDown(KeyEventArgs e) {
-  Serial.print("Key down");
+  if (_onKeyDown) {
+    _onKeyDown(e);
+  }
 }
 
 void Keyboard::_handleKeyUp(KeyEventArgs e) {
-  Serial.println(" - up");
+  if (_onKeyUp) {
+    _onKeyUp(e);
+  }
 }

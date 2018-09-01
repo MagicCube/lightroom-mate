@@ -15,6 +15,8 @@ void setup() {
   Serial.println("*******************************************************\n");
 
   keyboard.registerKey(23, 1);
+  keyboard.onKeyDown([](KeyEventArgs e) { Serial.print("Key down"); });
+  keyboard.onKeyUp([](KeyEventArgs e) { Serial.println("Key up"); });
   keyboard.begin();
 
   server.begin();

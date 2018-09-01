@@ -10,6 +10,9 @@ class Keyboard {
 public:
   Keyboard();
 
+  void onKeyDown(KeyEventHandler handler);
+  void onKeyUp(KeyEventHandler handler);
+
   void begin();
   void update();
   void registerKey(uint8_t pin, uint8_t note);
@@ -21,4 +24,7 @@ private:
   List<Key *> _keys;
   KeyEventHandler _keyDownEventHandler = NULL;
   KeyEventHandler _keyUpEventHandler = NULL;
+
+  KeyEventHandler _onKeyDown = NULL;
+  KeyEventHandler _onKeyUp = NULL;
 };
