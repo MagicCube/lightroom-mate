@@ -3,6 +3,7 @@
 #include <Arduino.h>
 
 #include "../collections/List.h"
+#include "../hmi/Encoder.h"
 #include "../hmi/Key.h"
 
 #include "MIDIProvider.h"
@@ -12,6 +13,7 @@ public:
   MIDIController(MIDIProvider *midiProvider);
 
   void registerKey(uint8_t note, uint8_t pin);
+  void registerEncoder(uint8_t controllerId, uint8_t clkPin, uint8_t dtPin);
 
   void begin();
   void update();
@@ -20,7 +22,9 @@ private:
   MIDIProvider *_midiProvider;
 
   List<Key *> _keys;
+  List<Encoder *> _encoders;
 
   void _handleKeyDown(KeyEventArgs e);
   void _handleKeyUp(KeyEventArgs e);
+  void _handleEncoderChange(EncoderEventArgs e);
 };
