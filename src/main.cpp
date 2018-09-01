@@ -3,8 +3,8 @@
 #include "midi/MIDIController.h"
 #include "server/LRMServer.h"
 
-LRMServer server;
-MIDIController controller(server.getMIDIService());
+LRMServer *server = new LRMServer();
+MIDIController *controller = NULL;
 
 void setup() {
   Serial.begin(115200);
@@ -15,13 +15,14 @@ void setup() {
   Serial.println("*******************************************************\n");
 
   // Start server
-  server.begin();
+  server->begin();
 
   // Setup controller
-  controller.registerKey(23, 1);
-  controller.begin();
+  controller = new MIDIController(server->getMIDIService());
+  controller->registerKey(23, 1);
+  controller->begin();
 }
 
 void loop() {
-  controller.update();
+  controller->update();
 }

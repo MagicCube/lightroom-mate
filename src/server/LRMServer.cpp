@@ -1,23 +1,6 @@
 #include "LRMServer.h"
 
-class LRMServerCallbacks : public BLEServerCallbacks {
-public:
-  LRMServerCallbacks(LRMServer *LRMServer) {
-    _lrmServer = LRMServer;
-  }
-
-  void onConnect(BLEServer *server) {
-    _lrmServer->setConnected(true);
-  }
-
-  void onDisconnect(BLEServer *server) {
-    _lrmServer->setConnected(false);
-  }
-
-private:
-  LRMServer *_lrmServer;
-};
-
+#include "LRMServerCallback.h"
 
 LRMServer::LRMServer() {
   auto chipId = ESP.getEfuseMac();
