@@ -11,7 +11,7 @@ class MIDIController {
 public:
   MIDIController(MIDIProvider *midiProvider);
 
-  void registerKey(uint8_t pin, uint8_t note);
+  void registerKey(uint8_t note, uint8_t pin);
 
   void begin();
   void update();

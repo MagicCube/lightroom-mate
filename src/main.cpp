@@ -25,7 +25,7 @@ void setup() {
 
   // Setup controller
   controller = new MIDIController(server->getMIDIService());
-  controller->registerKey(23, 60);
+  controller->registerKey(60, 23);
   controller->begin();
 }
 

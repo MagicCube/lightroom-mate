@@ -4,8 +4,8 @@ MIDIController::MIDIController(MIDIProvider *midiProvider) {
   _midiProvider = midiProvider;
 }
 
-void MIDIController::registerKey(uint8_t pin, uint8_t note) {
-  Key *key = new Key(pin, note);
+void MIDIController::registerKey(uint8_t note, uint8_t pin) {
+  Key *key = new Key(note, pin);
   key->onKeyDown(std::bind(&MIDIController::_handleKeyDown, this, placeholders::_1));
   key->onKeyUp(std::bind(&MIDIController::_handleKeyUp, this, placeholders::_1));
   _keys.add(key);

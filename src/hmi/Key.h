@@ -9,7 +9,7 @@
 
 class Key {
 public:
-  Key(uint8_t pin, uint8_t code);
+  Key(uint8_t code, uint8_t pin);
 
   void onKeyDown(KeyEventHandler handler);
   void onKeyUp(KeyEventHandler handler);

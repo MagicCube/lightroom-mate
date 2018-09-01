@@ -1,8 +1,8 @@
 #include "Key.h"
 
-Key::Key(uint8_t pin, uint8_t code) {
-  _pin = pin;
+Key::Key(uint8_t code, uint8_t pin) {
   _code = code;
+  _pin = pin;
 }
 
 void Key::onKeyDown(KeyEventHandler handler) {
