@@ -2,6 +2,8 @@
 
 #include <Arduino.h>
 
+#include <vector>
+
 using namespace std;
 
 // Represents a readonly list.
