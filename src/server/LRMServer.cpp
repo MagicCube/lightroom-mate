@@ -1,38 +1,42 @@
-#include "MIDIServer.h"
+#include "LRMServer.h"
 
-class MIDIServerCallbacks : public BLEServerCallbacks {
+class LRMServerCallbacks : public BLEServerCallbacks {
 public:
-  MIDIServerCallbacks(MIDIServer *midiServer) {
-    _midiServer = midiServer;
+  LRMServerCallbacks(LRMServer *LRMServer) {
+    _lrmServer = LRMServer;
   }
 
   void onConnect(BLEServer *server) {
-    _midiServer->setConnected(true);
+    _lrmServer->setConnected(true);
   }
 
   void onDisconnect(BLEServer *server) {
-    _midiServer->setConnected(false);
+    _lrmServer->setConnected(false);
   }
 
 private:
-  MIDIServer *_midiServer;
+  LRMServer *_lrmServer;
 };
 
 
-MIDIServer::MIDIServer() {
+LRMServer::LRMServer() {
   auto chipId = ESP.getEfuseMac();
   // Only use the last 4 byte as ID
   _name = String("LightroomMate-" + String((uint32_t)chipId));
 }
 
-String MIDIServer::getName() {
+String LRMServer::getName() {
   return _name;
 }
 
-bool MIDIServer::isConnected() {
+MIDIService *LRMServer::getMIDIService() {
+  return _midiService;
+}
+
+bool LRMServer::isConnected() {
   return _connected;
 }
-void MIDIServer::setConnected(bool connected) {
+void LRMServer::setConnected(bool connected) {
   if (_connected != connected) {
     _connected = connected;
     if (_connected) {
@@ -43,12 +47,12 @@ void MIDIServer::setConnected(bool connected) {
   }
 }
 
-void MIDIServer::begin() {
+void LRMServer::begin() {
   Serial.println("Initializing MIDI Server...");
 
   BLEDevice::init(_name.c_str());
   _bleServer = BLEDevice::createServer();
-  _bleServer->setCallbacks(new MIDIServerCallbacks(this));
+  _bleServer->setCallbacks(new LRMServerCallbacks(this));
 
   _midiService = new MIDIService(_bleServer);
   _midiService->begin();

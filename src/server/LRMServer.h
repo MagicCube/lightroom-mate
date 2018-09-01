@@ -11,11 +11,13 @@
 
 #include "../services/MIDIService.h"
 
-class MIDIServer {
+// Represents the Lightroom Mate server.
+class LRMServer {
 public:
-  MIDIServer();
+  LRMServer();
 
   String getName();
+  MIDIService *getMIDIService();
 
   bool isConnected();
   void setConnected(bool connected);
