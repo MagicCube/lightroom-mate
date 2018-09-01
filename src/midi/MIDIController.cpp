@@ -14,20 +14,19 @@ void MIDIController::setChannel(uint8_t channel) {
   _channel = channel;
 }
 
-Key *MIDIController::registerKey(uint8_t note, uint8_t pin) {
-  Key *key = new Key(note, pin);
+Key *MIDIController::registerKey(uint8_t pin) {
+  Key *key = new Key(_midiNoteIndex++, pin);
   key->onKeyDown(std::bind(&MIDIController::_handleKeyDown, this, placeholders::_1));
   key->onKeyUp(std::bind(&MIDIController::_handleKeyUp, this, placeholders::_1));
   _keys.add(key);
   return key;
 }
 
-Encoder *MIDIController::registerEncoder(uint8_t controllerId, uint8_t note, uint8_t clkPin,
-                                         uint8_t dtPin, uint8_t swPin) {
-  Encoder *encoder = new Encoder(controllerId, clkPin, dtPin);
+Encoder *MIDIController::registerEncoder(uint8_t clkPin, uint8_t dtPin, uint8_t swPin) {
+  Encoder *encoder = new Encoder(_midiControllerIndex++, clkPin, dtPin);
   encoder->onChange(std::bind(&MIDIController::_handleEncoderChange, this, placeholders::_1));
   _encoders.add(encoder);
-  auto key = registerKey(note, swPin);
+  auto key = registerKey(swPin);
   key->setEncoder(encoder);
   return encoder;
 }
