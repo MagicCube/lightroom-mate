@@ -9,6 +9,7 @@
 
 #include "../constants.h"
 
+// Represents a Apple BLE MIDI service.
 class MIDIService {
 public:
   MIDIService(BLEServer *bleServer);
