@@ -4,11 +4,15 @@
 
 #include <functional>
 
+class Key;
+
 struct KeyEventArgs {
-  KeyEventArgs(uint8_t p_code) {
+  KeyEventArgs(Key *p_target, uint8_t p_code) {
+    target = p_target;
     code = p_code;
   }
 
+  Key *target;
   uint8_t code;
 };
 
