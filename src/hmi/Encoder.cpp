@@ -5,6 +5,7 @@
 #include "../collections/List.h"
 
 #define ENCODER_MAX_VALUE 127
+#define ENCODER_INITIAL_VALUE 64
 #define ENCODER_MIN_VALUE 0
 
 static List<AiEsp32RotaryEncoder *> _encoders;
@@ -26,8 +27,7 @@ void Encoder::begin() {
     }
   });
   _encoder.setBoundaries(ENCODER_MIN_VALUE, ENCODER_MAX_VALUE, false);
-  _value = (ENCODER_MAX_VALUE - ENCODER_MIN_VALUE - 1) / 2;
-  _encoder.reset(_value);
+  reset();
 }
 
 void Encoder::update() {
@@ -41,4 +41,9 @@ void Encoder::update() {
       }
     }
   }
+}
+
+void Encoder::reset() {
+  _value = ENCODER_INITIAL_VALUE;
+  _encoder.reset(_value);
 }

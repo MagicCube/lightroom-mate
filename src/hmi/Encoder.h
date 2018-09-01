@@ -14,6 +14,7 @@ public:
 
   void begin();
   void update();
+  void reset();
 
 private:
   AiEsp32RotaryEncoder _encoder;
