@@ -19,12 +19,10 @@ public:
   void onReceive(MIDIEventHandler handler);
 
   void begin();
-
   void sendMIDIEvent(MIDIEventArgs event);
   void receiveMIDIEvent(MIDIEventArgs event);
 
 private:
   BLECharacteristic *_bleCharacteristic;
-
   MIDIEventHandler _onReceive;
 };
