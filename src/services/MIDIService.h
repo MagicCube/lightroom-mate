@@ -16,11 +16,15 @@ class MIDIService : public Service, public MIDIProvider {
 public:
   MIDIService(LRMServer *server);
 
+  void onReceive(MIDIEventHandler handler);
+
   void begin();
 
-  void sendMIDIEvent(MIDIEvent event);
-  void receiveMIDIEvent(MIDIEvent event);
+  void sendMIDIEvent(MIDIEventArgs event);
+  void receiveMIDIEvent(MIDIEventArgs event);
 
 private:
   BLECharacteristic *_bleCharacteristic;
+
+  MIDIEventHandler _onReceive;
 };

@@ -15,20 +15,26 @@ MIDIService::MIDIService(LRMServer *server) : Service(server, MIDI_SERVICE_UUID)
   _bleCharacteristic->setCallbacks(new MIDICharacteristicCallbacks(this));
 }
 
+void MIDIService::onReceive(MIDIEventHandler handler) {
+  _onReceive = handler;
+}
+
 void MIDIService::begin() {
   Service::begin();
   Serial.println("MIDI service is now started.");
 }
 
-void MIDIService::sendMIDIEvent(MIDIEvent event) {
+void MIDIService::sendMIDIEvent(MIDIEventArgs event) {
   uint8_t arr[5];
   event.toArray(arr);
   _bleCharacteristic->setValue(arr, 5);
   _bleCharacteristic->notify();
 }
 
-void MIDIService::receiveMIDIEvent(MIDIEvent event) {
-  Serial.println("\n*******************************");
-  event.print();
-  Serial.println("*******************************\n");
+void MIDIService::receiveMIDIEvent(MIDIEventArgs event) {
+  if (event.type == MIDIEventType::CONTROL_ON_CHANGE) {
+    if (_onReceive) {
+      _onReceive(event);
+    }
+  }
 }
