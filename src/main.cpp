@@ -15,9 +15,11 @@ SH1106Wire display(0x3c, 21, 22);
 
 void initBLE() {
   auto chipId = ESP.getEfuseMac();
+  auto shortId = String((uint32_t)chipId);
   // Only use the last 4 byte as ID
-  deviceName = String("LightroomMate-" + String((uint32_t)chipId % 100));
+  deviceName = "LR" + shortId.substring(shortId.length() - 3);
   BLEDevice::init(deviceName.c_str());
+  BLEDevice::setEncryptionLevel((esp_ble_sec_act_t)ESP_LE_AUTH_REQ_SC_BOND);
   Serial.print("BLE device [");
   Serial.print(deviceName);
   Serial.print("] is now initialized.");
