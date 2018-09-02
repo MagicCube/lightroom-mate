@@ -19,22 +19,22 @@ void LRMServer::setConnected(bool connected) {
   if (_connected != connected) {
     _connected = connected;
     if (_connected) {
-      Serial.println("BLE client is now connected.");
+      Serial.println("[SERVER]\tBLE client is now connected.");
     } else {
-      Serial.println("BLE client is now disconnected.");
+      Serial.println("[SERVER]\tBLE client is now disconnected.");
     }
   }
 }
 
 void LRMServer::begin() {
-  Serial.println("Initializing MIDI Server...");
+  Serial.println("[SERVER]\tInitializing MIDI Server...");
 
   _midiService->begin();
 
   _bleServer->getAdvertising()->addServiceUUID(MIDI_SERVICE_UUID);
   _bleServer->getAdvertising()->start();
 
-  Serial.println("BLE Advertising is now started.");
+  Serial.println("[SERVER]\tBLE Advertising is now started.");
 }
 
 BLEService *LRMServer::createBLEService(String uuid) {

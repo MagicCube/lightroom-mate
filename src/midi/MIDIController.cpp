@@ -52,15 +52,19 @@ void MIDIController::update() {
 
 void MIDIController::_handleKeyDown(KeyEventArgs e) {
   _midiProvider->sendMIDIEvent(MIDIEventType::NOTE_ON, getChannel(), e.index, 127);
+  Serial.print("[CONTROLLER]\tKey #");
+  Serial.print(e.index);
 }
 
 void MIDIController::_handleKeyUp(KeyEventArgs e) {
   _midiProvider->sendMIDIEvent(MIDIEventType::NOTE_OFF, getChannel(), e.index, 0);
+  Serial.print(" pressed.");
+  Serial.println();
 }
 
 void MIDIController::_handleEncoderChange(EncoderEventArgs e) {
   _midiProvider->sendMIDIEvent(MIDIEventType::CONTROL_CHANGE, getChannel(), e.index, e.value);
-  Serial.print("[LOCAL]  Set Control #");
+  Serial.print("[CONTROLLER]\tSet Control #");
   Serial.print(e.index);
   Serial.print(" to [");
   Serial.print(e.value);
@@ -74,7 +78,7 @@ void MIDIController::_handleMIDIServiceReceive(MIDIEventArgs e) {
       for (auto encoder : _encoders) {
         if (encoder->getIndex() == e.index) {
           encoder->setValue(e.value);
-          Serial.print("[REMOTE] Set Control #");
+          Serial.print("[CLIENT]\tSet Control #");
           Serial.print(encoder->getIndex());
           Serial.print(" to [");
           Serial.print(e.value);

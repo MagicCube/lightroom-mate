@@ -21,7 +21,7 @@ void MIDIService::onReceive(MIDIEventHandler handler) {
 
 void MIDIService::begin() {
   Service::begin();
-  Serial.println("MIDI service is now started.");
+  Serial.println("[SERVER]\tMIDI service is now started.");
 }
 
 void MIDIService::sendMIDIEvent(MIDIEventArgs event) {
