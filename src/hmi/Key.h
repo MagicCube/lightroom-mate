@@ -14,9 +14,6 @@ public:
 
   uint8_t getIndex();
 
-  Encoder *getEncoder();
-  void setEncoder(Encoder *encoder);
-
   void onKeyDown(KeyEventHandler handler);
   void onKeyUp(KeyEventHandler handler);
 

@@ -9,13 +9,6 @@ uint8_t Key::getIndex() {
   return _code;
 }
 
-Encoder *Key::getEncoder() {
-  return _encoder;
-}
-void Key::setEncoder(Encoder *encoder) {
-  _encoder = encoder;
-}
-
 void Key::onKeyDown(KeyEventHandler handler) {
   _onKeyDown = handler;
 }
