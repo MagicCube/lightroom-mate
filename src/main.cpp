@@ -6,6 +6,7 @@
 #include "midi/MIDIController.h"
 #include "server/LRMServer.h"
 
+String deviceName;
 LRMServer *server;
 MIDIController *controller;
 
@@ -15,8 +16,12 @@ SH1106Wire display(0x3c, 21, 22);
 void initBLE() {
   auto chipId = ESP.getEfuseMac();
   // Only use the last 4 byte as ID
-  String name = String("LightroomMate-" + String((uint32_t)chipId));
-  BLEDevice::init(name.c_str());
+  deviceName = String("LightroomMate-" + String((uint32_t)chipId % 100));
+  BLEDevice::init(deviceName.c_str());
+  Serial.print("BLE device [");
+  Serial.print(deviceName);
+  Serial.print("] is now initialized.");
+  Serial.println();
 }
 
 void initDisplay() {
