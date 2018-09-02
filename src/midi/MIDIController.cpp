@@ -54,12 +54,12 @@ void MIDIController::_handleKeyDown(KeyEventArgs e) {
   _midiProvider->sendMIDIEvent(MIDIEventType::NOTE_ON, getChannel(), e.index, 127);
   Serial.print("[CONTROLLER]\tKey #");
   Serial.print(e.index);
+  Serial.print(" pressed.");
+  Serial.println();
 }
 
 void MIDIController::_handleKeyUp(KeyEventArgs e) {
   _midiProvider->sendMIDIEvent(MIDIEventType::NOTE_OFF, getChannel(), e.index, 0);
-  Serial.print(" pressed.");
-  Serial.println();
 }
 
 void MIDIController::_handleEncoderChange(EncoderEventArgs e) {
