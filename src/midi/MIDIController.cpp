@@ -62,5 +62,5 @@ void MIDIController::_handleKeyUp(KeyEventArgs e) {
 }
 
 void MIDIController::_handleEncoderChange(EncoderEventArgs e) {
-  _midiProvider->sendMIDIEvent(MIDIEventType::CONTROL_MODE_CHANGE, getChannel(), e.code, e.value);
+  _midiProvider->sendMIDIEvent(MIDIEventType::CONTROL_CHANGE, getChannel(), e.code, e.value);
 }
