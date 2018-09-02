@@ -1,6 +1,6 @@
 #include "LRMServer.h"
 
-#include "LRMServerCallback.h"
+#include "LRMServerCallbacks.h"
 
 LRMServer::LRMServer() {
   _bleServer = BLEDevice::createServer();
