@@ -64,9 +64,9 @@ void MIDIController::_handleKeyUp(KeyEventArgs e) {
 
 void MIDIController::_handleEncoderChange(EncoderEventArgs e) {
   _midiProvider->sendMIDIEvent(MIDIEventType::CONTROL_CHANGE, getChannel(), e.index, e.value);
-  Serial.print("[CONTROLLER]\tSet Control #");
+  Serial.print("[CONTROLLER]\tControl #");
   Serial.print(e.index);
-  Serial.print(" to [");
+  Serial.print(" sets to [");
   Serial.print(e.value);
   Serial.print("].");
   Serial.println();
@@ -78,9 +78,9 @@ void MIDIController::_handleMIDIServiceReceive(MIDIEventArgs e) {
       for (auto encoder : _encoders) {
         if (encoder->getIndex() == e.index) {
           encoder->setValue(e.value);
-          Serial.print("[CLIENT]\tSet Control #");
+          Serial.print("[CLIENT]\tControl #");
           Serial.print(encoder->getIndex());
-          Serial.print(" to [");
+          Serial.print(" sets to [");
           Serial.print(e.value);
           Serial.print("].");
           Serial.println();
