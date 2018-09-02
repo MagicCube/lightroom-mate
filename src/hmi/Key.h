@@ -10,7 +10,7 @@
 
 class Key {
 public:
-  Key(uint8_t code, uint8_t pin);
+  Key(uint8_t index, uint8_t pin);
 
   uint8_t getIndex();
 
@@ -26,7 +26,7 @@ private:
   Encoder *_encoder;
 
   uint8_t _pin;
-  uint8_t _code;
+  uint8_t _index;
   KeyState _state = KeyState::UP;
   unsigned long _lastStateChange = 0;
 
