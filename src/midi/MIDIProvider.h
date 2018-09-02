@@ -6,6 +6,8 @@
 
 class MIDIProvider {
 public:
+  void onReceive(MIDIEventHandler handler);
+
   virtual void sendMIDIEvent(MIDIEventArgs event);
   virtual void sendMIDIEvent(MIDIEventType type, uint8_t channel, uint8_t index, uint8_t value) {
     MIDIEventArgs event(type, channel, index, value);
