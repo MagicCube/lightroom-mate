@@ -7,10 +7,10 @@
 #include "MIDICharacteristicCallbacks.h"
 
 MIDIService::MIDIService(LRMServer *server) : Service(server, MIDI_SERVICE_UUID) {
-  _bleCharacteristic = this->createCharacteristic(MIDI_CHARACTERISTIC_UUID,
-                                                  BLECharacteristic::PROPERTY_READ |
-                                                      BLECharacteristic::PROPERTY_NOTIFY |
-                                                      BLECharacteristic::PROPERTY_WRITE_NR);
+  _bleCharacteristic = this->createCharacteristic(
+      MIDI_CHARACTERISTIC_UUID,
+      BLECharacteristic::PROPERTY_READ | BLECharacteristic::PROPERTY_WRITE |
+          BLECharacteristic::PROPERTY_NOTIFY | BLECharacteristic::PROPERTY_WRITE_NR);
   _bleCharacteristic->addDescriptor(new BLE2902());
   _bleCharacteristic->setCallbacks(new MIDICharacteristicCallbacks(this));
 }
