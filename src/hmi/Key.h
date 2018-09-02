@@ -12,6 +12,8 @@ class Key {
 public:
   Key(uint8_t code, uint8_t pin);
 
+  uint8_t getIndex();
+
   Encoder *getEncoder();
   void setEncoder(Encoder *encoder);
 

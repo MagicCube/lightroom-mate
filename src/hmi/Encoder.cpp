@@ -5,7 +5,7 @@
 #include "../collections/List.h"
 
 #define ENCODER_MAX_VALUE 127
-#define ENCODER_INITIAL_VALUE 64
+#define ENCODER_INITIAL_VALUE 63
 #define ENCODER_MIN_VALUE 0
 
 static List<AiEsp32RotaryEncoder *> _encoders;
@@ -13,6 +13,19 @@ static List<AiEsp32RotaryEncoder *> _encoders;
 Encoder::Encoder(uint8_t code, uint8_t clkPin, uint8_t dtPin) : _encoder(clkPin, dtPin, -1, -1) {
   _code = code;
   _encoders.add(&_encoder);
+}
+
+uint8_t Encoder::getIndex() {
+  return _code;
+}
+
+uint8_t Encoder::getValue() {
+  return _value;
+}
+
+void Encoder::setValue(uint8_t value) {
+  _value = value;
+  _encoder.reset(ENCODER_MAX_VALUE - _value);
 }
 
 void Encoder::onChange(EncoderEventHandler handler) {
@@ -33,17 +46,16 @@ void Encoder::begin() {
 void Encoder::update() {
   auto delta = _encoder.encoderChanged();
   if (delta) {
-    auto newValue = _encoder.readEncoder();
+    auto newValue = ENCODER_MAX_VALUE - _encoder.readEncoder();
     if (_value != newValue) {
       _value = newValue;
       if (_onChange) {
-        _onChange(EncoderEventArgs(_code, ENCODER_MAX_VALUE - _value));
+        _onChange(EncoderEventArgs(_code, _value));
       }
     }
   }
 }
 
 void Encoder::reset() {
-  _value = ENCODER_INITIAL_VALUE;
-  _encoder.reset(_value);
+  setValue(ENCODER_INITIAL_VALUE);
 }

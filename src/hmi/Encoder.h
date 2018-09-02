@@ -10,6 +10,11 @@ class Encoder {
 public:
   Encoder(uint8_t code, uint8_t clkPin, uint8_t dtPin);
 
+  uint8_t getIndex();
+
+  uint8_t getValue();
+  void setValue(uint8_t value);
+
   void onChange(EncoderEventHandler handler);
 
   void begin();

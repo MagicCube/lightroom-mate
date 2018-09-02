@@ -24,6 +24,8 @@ public:
   void update();
 
 private:
+  void _handleMIDIServiceReceive(MIDIEventArgs e);
+
   MIDIProvider *_midiProvider;
 
   uint8_t _channel = 1;

@@ -5,6 +5,10 @@ Key::Key(uint8_t code, uint8_t pin) {
   _pin = pin;
 }
 
+uint8_t Key::getIndex() {
+  return _code;
+}
+
 Encoder *Key::getEncoder() {
   return _encoder;
 }
