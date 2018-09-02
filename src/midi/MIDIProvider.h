@@ -6,9 +6,9 @@
 
 class MIDIProvider {
 public:
-  virtual void sendMIDIEvent(MIDIEvent event);
+  virtual void sendMIDIEvent(MIDIEventArgs event);
   virtual void sendMIDIEvent(MIDIEventType type, uint8_t channel, uint8_t index, uint8_t value) {
-    MIDIEvent e(type, channel, index, value);
-    sendMIDIEvent(e);
+    MIDIEventArgs event(type, channel, index, value);
+    sendMIDIEvent(event);
   }
 };

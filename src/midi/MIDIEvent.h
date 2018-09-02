@@ -2,6 +2,8 @@
 
 #include <Arduino.h>
 
+#include <functional>
+
 enum class MIDIEventType : uint8_t {
   UNKNOWN = 0x00,
   NOTE_OFF = 0x80,
@@ -10,20 +12,20 @@ enum class MIDIEventType : uint8_t {
   CONTROL_ON_CHANGE = 0x01
 };
 
-struct MIDIEvent {
-  MIDIEvent(MIDIEventType p_type) {
+struct MIDIEventArgs {
+  MIDIEventArgs(MIDIEventType p_type) {
     type = p_type;
   }
 
-  MIDIEvent(MIDIEventType p_type, uint8_t p_channel, uint8_t p_index, uint8_t p_value) {
+  MIDIEventArgs(MIDIEventType p_type, uint8_t p_channel, uint8_t p_index, uint8_t p_value) {
     type = p_type;
     channel = p_channel;
     index = p_index;
     value = p_value;
   }
 
-  static MIDIEvent parse(const char *chars) {
-    MIDIEvent event(MIDIEventType::UNKNOWN);
+  static MIDIEventArgs parse(const char *chars) {
+    MIDIEventArgs event(MIDIEventType::UNKNOWN);
     uint8_t v = chars[2];
     if (v >= (uint8_t)MIDIEventType::CONTROL_CHANGE &&
         v <= (uint8_t)MIDIEventType::CONTROL_CHANGE + 16) {
@@ -48,3 +50,5 @@ struct MIDIEvent {
   uint8_t index;
   uint8_t value;
 };
+
+typedef std::function<void(MIDIEventArgs)> MIDIEventHandler;

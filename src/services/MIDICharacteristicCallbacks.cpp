@@ -9,7 +9,7 @@ MIDICharacteristicCallbacks::MIDICharacteristicCallbacks(MIDIService *midiServic
 void MIDICharacteristicCallbacks::onWrite(BLECharacteristic *characteristic) {
   std::string value = characteristic->getValue().c_str();
   if (value.length() == 5) {
-    MIDIEvent event = MIDIEvent::parse(value.c_str());
+    MIDIEventArgs event = MIDIEventArgs::parse(value.c_str());
     _midiService->receiveMIDIEvent(event);
   }
 }
