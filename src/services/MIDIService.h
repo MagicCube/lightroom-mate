@@ -19,6 +19,7 @@ public:
   void begin();
 
   void sendMIDIEvent(MIDIEvent event);
+  void receiveMIDIEvent(MIDIEvent event);
 
 private:
   BLECharacteristic *_bleCharacteristic;
