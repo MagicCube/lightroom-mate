@@ -19,7 +19,6 @@ void initBLE() {
   // Only use the last 4 byte as ID
   deviceName = "LR" + shortId.substring(shortId.length() - 3);
   BLEDevice::init(deviceName.c_str());
-  BLEDevice::setEncryptionLevel((esp_ble_sec_act_t)ESP_LE_AUTH_REQ_SC_BOND);
   Serial.print("BLE device [");
   Serial.print(deviceName);
   Serial.print("] is now initialized.");

@@ -11,8 +11,6 @@ MIDIService::MIDIService(LRMServer *server) : Service(server, MIDI_SERVICE_UUID)
       MIDI_CHARACTERISTIC_UUID,
       BLECharacteristic::PROPERTY_READ | BLECharacteristic::PROPERTY_WRITE |
           BLECharacteristic::PROPERTY_NOTIFY | BLECharacteristic::PROPERTY_WRITE_NR);
-  _bleCharacteristic->setAccessPermissions(ESP_GATT_PERM_READ_ENCRYPTED |
-                                           ESP_GATT_PERM_WRITE_ENCRYPTED);
   _bleCharacteristic->addDescriptor(new BLE2902());
   _bleCharacteristic->setCallbacks(new MIDICharacteristicCallbacks(this));
 }

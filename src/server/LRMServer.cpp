@@ -34,9 +34,6 @@ void LRMServer::begin() {
   _bleServer->getAdvertising()->addServiceUUID(MIDI_SERVICE_UUID);
   _bleServer->getAdvertising()->start();
 
-  BLESecurity *pSecurity = new BLESecurity();
-  pSecurity->setAuthenticationMode(ESP_LE_AUTH_REQ_SC_BOND);
-
   Serial.println("[SERVER]\tBLE Advertising is now started.");
 }
 
