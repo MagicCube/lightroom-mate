@@ -10,13 +10,13 @@
 
 static List<AiEsp32RotaryEncoder *> _encoders;
 
-Encoder::Encoder(uint8_t code, uint8_t clkPin, uint8_t dtPin) : _encoder(clkPin, dtPin, -1, -1) {
-  _code = code;
+Encoder::Encoder(uint8_t index, uint8_t clkPin, uint8_t dtPin) : _encoder(clkPin, dtPin, -1, -1) {
+  _index = index;
   _encoders.add(&_encoder);
 }
 
 uint8_t Encoder::getIndex() {
-  return _code;
+  return _index;
 }
 
 uint8_t Encoder::getValue() {
@@ -50,7 +50,7 @@ void Encoder::update() {
     if (_value != newValue) {
       _value = newValue;
       if (_onChange) {
-        _onChange(EncoderEventArgs(_code, _value));
+        _onChange(EncoderEventArgs(_index, _value));
       }
     }
   }

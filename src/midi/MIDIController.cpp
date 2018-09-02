@@ -50,17 +50,17 @@ void MIDIController::update() {
 }
 
 void MIDIController::_handleKeyDown(KeyEventArgs e) {
-  _midiProvider->sendMIDIEvent(MIDIEventType::NOTE_ON, getChannel(), e.code, 127);
+  _midiProvider->sendMIDIEvent(MIDIEventType::NOTE_ON, getChannel(), e.index, 127);
 }
 
 void MIDIController::_handleKeyUp(KeyEventArgs e) {
-  _midiProvider->sendMIDIEvent(MIDIEventType::NOTE_OFF, getChannel(), e.code, 0);
+  _midiProvider->sendMIDIEvent(MIDIEventType::NOTE_OFF, getChannel(), e.index, 0);
 }
 
 void MIDIController::_handleEncoderChange(EncoderEventArgs e) {
-  _midiProvider->sendMIDIEvent(MIDIEventType::CONTROL_CHANGE, getChannel(), e.code, e.value);
+  _midiProvider->sendMIDIEvent(MIDIEventType::CONTROL_CHANGE, getChannel(), e.index, e.value);
   Serial.print("[LOCAL]  Set Control #");
-  Serial.print(e.code);
+  Serial.print(e.index);
   Serial.print(" to [");
   Serial.print(e.value);
   Serial.print("].");

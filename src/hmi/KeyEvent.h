@@ -7,13 +7,13 @@
 class Key;
 
 struct KeyEventArgs {
-  KeyEventArgs(Key *p_target, uint8_t p_code) {
+  KeyEventArgs(Key *p_target, uint8_t p_index) {
     target = p_target;
-    code = p_code;
+    index = p_index;
   }
 
   Key *target;
-  uint8_t code;
+  uint8_t index;
 };
 
 typedef std::function<void(KeyEventArgs)> KeyEventHandler;

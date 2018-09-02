@@ -8,7 +8,7 @@
 
 class Encoder {
 public:
-  Encoder(uint8_t code, uint8_t clkPin, uint8_t dtPin);
+  Encoder(uint8_t index, uint8_t clkPin, uint8_t dtPin);
 
   uint8_t getIndex();
 
@@ -23,7 +23,7 @@ public:
 
 private:
   AiEsp32RotaryEncoder _encoder;
-  uint8_t _code;
+  uint8_t _index;
   uint8_t _value = 64;
   EncoderEventHandler _onChange = NULL;
   unsigned long _lastUpdate = 0;
