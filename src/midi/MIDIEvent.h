@@ -43,15 +43,6 @@ struct MIDIEvent {
     arr[4] = value;                       // 4 - value
   }
 
-  void print() {
-    Serial.print("Channel: ");
-    Serial.println(channel);
-    Serial.print("Index: ");
-    Serial.println(index);
-    Serial.print("Value: ");
-    Serial.println(value);
-  }
-
   MIDIEventType type;
   uint8_t channel;
   uint8_t index;
