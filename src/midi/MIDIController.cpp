@@ -28,6 +28,7 @@ Encoder *MIDIController::registerEncoder(uint8_t clkPin, uint8_t dtPin, uint8_t 
   Encoder *encoder = new Encoder(_midiControllerIndex++, clkPin, dtPin);
   encoder->onChange(std::bind(&MIDIController::_handleEncoderChange, this, placeholders::_1));
   _encoders.add(encoder);
+  registerKey(swPin);
   return encoder;
 }
 
